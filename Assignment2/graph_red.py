@@ -25,6 +25,7 @@ num_entries = 0
 duplicate = False
 resolved = False
 final_attrs = [] 
+greyNodes = False
 
 for line in sys.stdin:
     line = line.rstrip()
@@ -64,6 +65,8 @@ for line in sys.stdin:
 
     if prev_key == node_id and resolved == False:
         # non-resolved nodes will always be GRAY
+        greyNodes = True
+
         if duplicate == False:
             childNode = node_attrs
             duplicate = True
@@ -76,4 +79,7 @@ if resolved == False:
     final_attrs = merge_nodes(childNode, existingNode)
     print_node(prev_key, final_attrs)
 
-sys.stderr.write('reporter:counter:bfs,nodeCount,1\n')
+if greyNodes == True:
+    sys.stderr.write('reporter:counter:bfs,greyNodes,1\n')
+else:
+    sys.stderr.write('reporter:counter:bfs,greyNodes,0\n')
