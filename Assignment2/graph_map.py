@@ -5,7 +5,7 @@ import string
 import sys
 
 def print_node(node_id, node_attrs):
-    output = node_id + "\t"
+    output = node_id + "|"
     for attrs in node_attrs:
         output = output + str(attrs) + "|"
     print '%s' % output[:-1]
